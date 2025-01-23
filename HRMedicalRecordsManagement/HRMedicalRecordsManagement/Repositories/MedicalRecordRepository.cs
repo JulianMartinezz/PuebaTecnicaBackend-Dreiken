@@ -1,6 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using HRMedicalRecordsManagement.Models;
 using HRMedicalRecordsManagement.Data;
+using HRMedicalRecordsManagement.Common.PagedList;
+using HRMedicalRecordsManagement.DTOs;
+using AutoMapper;
 
 namespace HRMedicalRecordsManagement.Repositories;
 
@@ -32,7 +35,7 @@ public class MedicalRecordRepository : IMedicalRecordRepository
         {
             throw new KeyNotFoundException("Medical record not found");
         }
-
+        
         return medicalRecord;
 
     }
@@ -58,4 +61,48 @@ public class MedicalRecordRepository : IMedicalRecordRepository
             await _context.SaveChangesAsync();
         }
     }
+
+    public async Task<PagedList<TMedicalRecord>> GetFilteredMedicalRecordsAsync(
+        int page,
+        int pageSize,
+        int? statusId,
+        DateTime? startDate,
+        DateTime? endDate,
+        int? medicalRecordTypeId)
+    {
+        var query = _context.TMedicalRecords.AsQueryable();
+
+        // Apply filters
+        if (statusId.HasValue)
+        {
+            query = query.Where(r => r.StatusId == statusId.Value);
+        }
+
+        if (startDate.HasValue)
+        {
+            var startDateOnly = DateOnly.FromDateTime(startDate.Value);
+            query = query.Where(r => r.StartDate >= startDateOnly);
+        }
+
+        if (endDate.HasValue)
+        {
+            var endDateOnly = DateOnly.FromDateTime(endDate.Value);
+            query = query.Where(r => r.EndDate <= endDateOnly);
+        }
+
+        if (medicalRecordTypeId.HasValue)
+        {
+            query = query.Where(r => r.MedicalRecordTypeId == medicalRecordTypeId.Value);
+        }
+
+        // Pagination logic
+        var totalCount = await query.CountAsync();
+        var items = await query
+            .Skip((page - 1) * pageSize)
+            .Take(pageSize)
+            .ToListAsync();
+
+        return new PagedList<TMedicalRecord>(items, totalCount, page, pageSize);
+    }
+    
 }
