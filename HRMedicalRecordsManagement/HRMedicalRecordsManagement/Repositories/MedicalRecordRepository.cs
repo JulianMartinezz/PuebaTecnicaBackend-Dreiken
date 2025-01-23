@@ -1,5 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using HRMedicalRecordsManagement.Models;
+using HRMedicalRecordsManagement.Data;
+
+namespace HRMedicalRecordsManagement.Repositories;
 
 public class MedicalRecordRepository : IMedicalRecordRepository
 {

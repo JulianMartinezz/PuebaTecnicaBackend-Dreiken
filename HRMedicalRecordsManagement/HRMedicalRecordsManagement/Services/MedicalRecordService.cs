@@ -1,5 +1,7 @@
 using HRMedicalRecordsManagement.Models;
 
+namespace HRMedicalRecordsManagement.Services;
+
 public class MedicalRecordService : IMedicalRecordService
 {
     private readonly IMedicalRecordRepository _repository;

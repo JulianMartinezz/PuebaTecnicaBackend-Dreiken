@@ -1,4 +1,7 @@
 using Microsoft.EntityFrameworkCore;
+using HRMedicalRecordsManagement.Data;
+using HRMedicalRecordsManagement.Services;
+using HRMedicalRecordsManagement.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
