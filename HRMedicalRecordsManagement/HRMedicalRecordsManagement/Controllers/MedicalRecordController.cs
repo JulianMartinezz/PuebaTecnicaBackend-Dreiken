@@ -38,55 +38,35 @@ namespace HRMedicalRecordsManagement.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetMedicalRecordById(int id)
         {
-            var medicalRecord = await _medicalRecordService.GetByIdAsync(id);
-            if (medicalRecord == null)
-            {
-                return NotFound();
-            }
-            return Ok(medicalRecord);
+            var medicalRecordDto = await _medicalRecordService.GetByIdAsync(id);
+            return Ok(medicalRecordDto);
         }
 
         [HttpPost]
         public async Task<IActionResult> AddMedicalRecord([FromBody] TMedicalRecord medicalRecord)
         {
-            if (medicalRecord == null)
-            {
-                return BadRequest("Medical record is null.");
-            }
+            var currentUser = "admin"; //Hardcoded since there is no requisite for authorization/authentication
 
-            await _medicalRecordService.AddAsync(medicalRecord);
-            return CreatedAtAction(nameof(GetMedicalRecordById), new { id = medicalRecord.MedicalRecordId}, medicalRecord);
+            await _medicalRecordService.AddAsync(medicalRecord, currentUser);
+            return Ok(medicalRecord.MedicalRecordId);
         }
 
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateMedicalRecord(int id, [FromBody] TMedicalRecord medicalRecord)
         {
-            if (id != medicalRecord.MedicalRecordId)
-            {
-                return BadRequest("Medical record ID mismatch.");
-            }
-
-            var existingRecord = await _medicalRecordService.GetByIdAsync(id);
-            if (existingRecord == null)
-            {
-                return NotFound();
-            }
-
-            await _medicalRecordService.UpdateAsync(medicalRecord);
-            return NoContent();
+            var currentUser = "admin"; //Hardcoded since there is no requisite for authorization/authentication
+            medicalRecord.MedicalRecordId = id;
+            await _medicalRecordService.UpdateAsync(medicalRecord, currentUser);
+            return  Ok(medicalRecord);
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteMedicalRecord(int id)
+        public async Task<IActionResult> DeleteMedicalRecord(int id, string reason)
         {
-            var existingRecord = await _medicalRecordService.GetByIdAsync(id);
-            if (existingRecord == null)
-            {
-                return NotFound();
-            }
+            var currentUser = "admin"; //Hardcoded since there is no requisite for authorization/authentication
 
-            await _medicalRecordService.DeleteAsync(id);
-            return NoContent();
+            await _medicalRecordService.DeleteAsync(id, currentUser, reason);
+            return Ok();
         }
     }
 }

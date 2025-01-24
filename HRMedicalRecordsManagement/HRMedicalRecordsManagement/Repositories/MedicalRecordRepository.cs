@@ -4,6 +4,7 @@ using HRMedicalRecordsManagement.Data;
 using HRMedicalRecordsManagement.Common.PagedList;
 using HRMedicalRecordsManagement.DTOs;
 using AutoMapper;
+using HRMedicalRecordsManagement.Common.DeletionData;
 
 namespace HRMedicalRecordsManagement.Repositories;
 
@@ -14,6 +15,13 @@ public class MedicalRecordRepository : IMedicalRecordRepository
     public MedicalRecordRepository(ApplicationDbContext context)
     {
         _context = context;
+    }
+    public void DetachEntity(TMedicalRecord entity)
+    {
+        if (_context.Entry(entity).State == EntityState.Detached)
+            return;
+        
+        _context.Entry(entity).State = EntityState.Detached;
     }
 
     public async Task<IEnumerable<TMedicalRecord>> GetAllAsync()
@@ -52,12 +60,17 @@ public class MedicalRecordRepository : IMedicalRecordRepository
         await _context.SaveChangesAsync();
     }
 
-    public async Task DeleteAsync(int id)
+    public async Task DeleteAsync(int id, DeletionData deletionData)
     {
         var record = await _context.TMedicalRecords.FindAsync(id);
         if (record != null)
         {
-            _context.TMedicalRecords.Remove(record);
+            //Logical deletion
+            record.StatusId = 2;
+            record.DeletedBy = deletionData.CurrentUser;
+            record.DeletionReason = deletionData.Reason;
+            record.DeletionDate = deletionData.CurrentDate;
+            _context.TMedicalRecords.Update(record);
             await _context.SaveChangesAsync();
         }
     }

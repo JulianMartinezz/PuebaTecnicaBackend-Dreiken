@@ -7,9 +7,13 @@ namespace HRMedicalRecordsManagement.DTOs
         public string? Diagnosis { get; set; }
         public DateOnly? StartDate { get; set; }
         public DateOnly? EndDate { get; set; }
+        public DateOnly? ModificationDate { get; set; }
+        public string? ModifiedBy { get; set; }
         public int StatusId { get; set; }
         public int MedicalRecordTypeId { get; set; }
         public string? CreatedBy { get; set; }
+
+        public string? DeletedBy { get; set; }
         public string? Audiometry { get; set; }
 
         public string? PositionChange { get; set; }
@@ -26,9 +30,11 @@ namespace HRMedicalRecordsManagement.DTOs
 
         public string? VoiceEvaluation { get; set; }
         public string? Disability { get; set; }
+        public decimal? DisabilityPercentage { get; set; }
         public string? MedicalBoard { get; set; }
         public string? AreaChange { get; set; }
         public string? DeletionReason { get; set; }
         public string? Observations { get; set; }
+        public bool isUpdate {get; set;}
     }
 }

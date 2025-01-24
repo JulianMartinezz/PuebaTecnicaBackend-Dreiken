@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("HRMedicalRecordsManagement")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7991ea3b7bc07143d28a1e9c84f050d25888227f")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f0670efb448690fd4a2cad1a0fffd9f15f991c11")]
 [assembly: System.Reflection.AssemblyProductAttribute("HRMedicalRecordsManagement")]
 [assembly: System.Reflection.AssemblyTitleAttribute("HRMedicalRecordsManagement")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

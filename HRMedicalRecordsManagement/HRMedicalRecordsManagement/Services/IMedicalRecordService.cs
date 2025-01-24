@@ -6,9 +6,9 @@ public interface IMedicalRecordService
 {
     Task<IEnumerable<TMedicalRecord>> GetAllAsync();
     Task<TMedicalRecordDto> GetByIdAsync(int id);
-    Task AddAsync(TMedicalRecord medicalRecord);
-    Task UpdateAsync(TMedicalRecord medicalRecord);
-    Task DeleteAsync(int id);
+    Task AddAsync(TMedicalRecord medicalRecord, string currentUser);
+    Task UpdateAsync(TMedicalRecord medicalRecord, string currentUser);
+    Task DeleteAsync(int id, string currentUser, string reason);
     Task<PagedList<TMedicalRecordDto>> GetFilteredMedicalRecordsAsync(
         int page,
         int pageSize,
