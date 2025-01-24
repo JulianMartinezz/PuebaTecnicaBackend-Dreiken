@@ -7,6 +7,8 @@ public partial class TMedicalRecord
 {
     public int MedicalRecordId { get; set; }
 
+    public int FileId {get; set;}
+
     public string? Audiometry { get; set; }
 
     public string? PositionChange { get; set; }
