@@ -21,6 +21,7 @@ Develop a medical records management system for the HR department by implementin
 ```sql
 CREATE TABLE T_MEDICAL_RECORD (
     MEDICAL_RECORD_ID SERIAL PRIMARY KEY,
+    FILE_ID INTEGER, -- FILE_ID represents the person to whom the MEDICAL_RECORD belongs, but it is not found in the database.
     AUDIOMETRY VARCHAR(2),
     POSITION_CHANGE VARCHAR(2),
     MOTHER_DATA VARCHAR(2000),
