@@ -72,6 +72,10 @@
               "target": "Package",
               "version": "[9.0.1, )"
             },
+            "Microsoft.aspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[8.0.8, )"
+            },
             "Moq": {
               "target": "Package",
               "version": "[4.20.72, )"
@@ -87,6 +91,10 @@
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[6.6.2, )"
+            },
+            "System.IdentityModel.Tokens.Jwt": {
+              "target": "Package",
+              "version": "[8.3.1, )"
             },
             "xunit": {
               "target": "Package",

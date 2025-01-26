@@ -1,4 +1,7 @@
 using HRMedicalRecordsManagement.Models;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HRMedicalRecordsManagement.Controllers
@@ -15,6 +18,7 @@ namespace HRMedicalRecordsManagement.Controllers
             _medicalRecordService = medicalRecordService;
         }
 
+        [Authorize]
         [HttpGet("filter")]
         public async Task<IActionResult> GetFilterMedicalRecords(
             [FromQuery] int page = 1, 
@@ -28,6 +32,7 @@ namespace HRMedicalRecordsManagement.Controllers
             return StatusCode(response.Code ?? 500, response);
         }
 
+        [Authorize]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetMedicalRecordById(int id)
         {
@@ -35,6 +40,7 @@ namespace HRMedicalRecordsManagement.Controllers
             return StatusCode(response.Code ?? 500, response);
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> AddMedicalRecord([FromBody] TMedicalRecord medicalRecord)
         {
@@ -44,6 +50,7 @@ namespace HRMedicalRecordsManagement.Controllers
             return StatusCode(response.Code ?? 500, response);
         }
 
+        [Authorize]
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateMedicalRecord(int id, [FromBody] TMedicalRecord medicalRecord)
         {
@@ -53,6 +60,7 @@ namespace HRMedicalRecordsManagement.Controllers
             return  StatusCode(response.Code ?? 500, response);
         }
 
+        [Authorize]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteMedicalRecord(int id, string reason)
         {
