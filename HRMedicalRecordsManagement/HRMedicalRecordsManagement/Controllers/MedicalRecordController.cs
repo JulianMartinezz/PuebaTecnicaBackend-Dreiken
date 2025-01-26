@@ -1,7 +1,5 @@
-using HRMedicalRecordsManagement.Services;
 using HRMedicalRecordsManagement.Models;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
 
 namespace HRMedicalRecordsManagement.Controllers
 

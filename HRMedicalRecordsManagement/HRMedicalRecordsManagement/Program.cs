@@ -4,7 +4,6 @@ using HRMedicalRecordsManagement.Services;
 using HRMedicalRecordsManagement.Repositories;
 using HRMedicalRecordsManagement.Validators;
 using FluentValidation;
-using HRMedicalRecordsManagement.Common.DeletionData;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);

@@ -2,8 +2,6 @@ using Microsoft.EntityFrameworkCore;
 using HRMedicalRecordsManagement.Models;
 using HRMedicalRecordsManagement.Data;
 using HRMedicalRecordsManagement.Common.PagedList;
-using HRMedicalRecordsManagement.DTOs;
-using AutoMapper;
 using HRMedicalRecordsManagement.Common.DeletionData;
 
 namespace HRMedicalRecordsManagement.Repositories;

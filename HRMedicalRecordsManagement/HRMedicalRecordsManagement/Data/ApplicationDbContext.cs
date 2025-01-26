@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using HRMedicalRecordsManagement.Models;
 
 namespace HRMedicalRecordsManagement.Data;
@@ -8,16 +6,6 @@ namespace HRMedicalRecordsManagement.Data;
 public partial class ApplicationDbContext : DbContext
 {
     private readonly IConfiguration _configuration;
-
-    /*Added constructor to support testing scenarios REMINDER: Delete on release, create a test specific constructor on test project
-
-    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
-        : base(options)
-        {
-            _configuration = new ConfigurationBuilder().Build();
-        }
-    
-    */
 
     public ApplicationDbContext(IConfiguration configuration)
     {

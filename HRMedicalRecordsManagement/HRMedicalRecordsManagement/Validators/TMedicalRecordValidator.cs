@@ -1,5 +1,3 @@
-using System.Data;
-using System.Diagnostics;
 using FluentValidation;
 using HRMedicalRecordsManagement.DTOs;
 
@@ -91,25 +89,31 @@ public class TMedicalRecordValidator : AbstractValidator<TMedicalRecordDto>
             .MaximumLength(2000).WithMessage("OBSERVATIONS should not exceed 2000 characters");
 
         RuleFor(x => x.Audiometry)
-            .Must(val => val == "Y" || val == "N").WithMessage("AUDIOMETRY must be 'Y' or 'N'");
+            .Must(val => val == null || val == "Y" || val == "N")
+            .WithMessage("If AUDIOMETRY exists, it must be 'Y' or 'N'");
         
         RuleFor(x => x.PositionChange)
-            .Must(val => val == "Y" || val == "N").WithMessage("POSITION_CHANGE must be 'Y' or 'N'");
+            .Must(val => val == null || val == "Y" || val == "N")
+            .WithMessage("If POSITION_CHANGE exists, it must be 'Y' or 'N'");
         
         RuleFor(x => x.ExecuteMicros)
-            .Must(val => val == "Y" || val == "N").WithMessage("EXECUTE_MICROS must be 'Y' or 'N'");
-        
+            .Must(val => val == null || val == "Y" || val == "N")
+            .WithMessage("If EXECUTE_MICROS exists, it must be 'Y' or 'N'");
         RuleFor(x => x.ExecuteExtra)
-            .Must(val => val == "Y" || val == "N").WithMessage("EXECUTE_EXTRA must be 'Y' or 'N'");
+            .Must(val => val == null || val == "Y" || val == "N")
+            .WithMessage("If EXECUTE_EXTRA exists, it must be 'Y' or 'N'");
         
         RuleFor(x => x.VoiceEvaluation)
-            .Must(val => val == "Y" || val == "N").WithMessage("VOICE_EVALUATION must be 'Y' or 'N'");
+            .Must(val => val == null || val == "Y" || val == "N")
+            .WithMessage("If VOICE_EVALUATION exists, it must be 'Y' or 'N'");
         
         RuleFor(x => x.Disability)
-            .Must(val => val == "Y" || val == "N").WithMessage("DISABILITY must be 'Y' or 'N'");
+            .Must(val => val == null || val == "Y" || val == "N")
+            .WithMessage("If DISABILITY exists, it must be 'Y' or 'N'");
         
         RuleFor(x => x.AreaChange)
-            .Must(val => val == "Y" || val == "N").WithMessage("AREA_CHANGE must be 'Y' or 'N'");
+            .Must(val => val == null || val == "Y" || val == "N")
+            .WithMessage("If AREA_CHANGE exists, it must be 'Y' or 'N'");
 
         // Status Control - 2.5
         RuleFor(x => x.StatusId)
@@ -144,12 +148,8 @@ public class TMedicalRecordValidator : AbstractValidator<TMedicalRecordDto>
             .NotNull()
             .InclusiveBetween(0, 100)
             .When(x => x.Disability == "Y")
-            .WithMessage("Disability Percentage must be between 0 and 100 when Disability is Y.")
-            .Must((x, disabilityPercentage) => 
-                (x.Disability == "N" && disabilityPercentage == null) || 
-                (x.Disability == "Y" && disabilityPercentage.HasValue && disabilityPercentage >= 0 && disabilityPercentage <= 100)
-                )
-                .WithMessage("Disability Percentage must not exist when Disability is N, and must be between 0 and 100 when Disability is Y.");
+            .WithMessage("Disability Percentage must be between 0 and 100 when Disability is Y.");
+            
 
         RuleFor(x => x.Observations)
             .NotEmpty()

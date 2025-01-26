@@ -6,11 +6,7 @@ using HRMedicalRecordsManagement.Common.PagedList;
 using HRMedicalRecordsManagement.DTOs;
 using HRMedicalRecordsManagement.Models;
 using HRMedicalRecordsManagement.Helpers;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 using HRMedicalRecordsManagement.Models.BaseResponse;
-using Xunit;
-using System.Diagnostics;
-using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace HRMedicalRecordsManagement.Services;
 
@@ -62,11 +58,11 @@ public class MedicalRecordService : IMedicalRecordService
         if (medicalRecord.StatusId==2){
             return ResponseHelper.BadRequest<TMedicalRecordDto>("StatusID can't be 2 when adding or modifying");
         }
-        //Mapping
-        var medicalRecordDto = _mapper.Map<TMedicalRecordDto>(medicalRecord);
         //Log user
         medicalRecord.CreatedBy = currentUser;
         medicalRecord.CreationDate = DateOnly.FromDateTime(DateTime.Now);
+        //Mapping
+        var medicalRecordDto = _mapper.Map<TMedicalRecordDto>(medicalRecord);
         //IsUpdate flag false
         medicalRecordDto.isUpdate = false;
         //Validation
