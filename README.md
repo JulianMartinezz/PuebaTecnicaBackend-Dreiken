@@ -205,3 +205,43 @@ The candidate must provide clear instructions for:
 
 ---
 *Note: For any questions or clarifications about requirements, please create an issue in the repository.*
+
+## Prerequisites
+
+- [.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet/8.0)
+- [PostgreSQL 15+](https://www.postgresql.org/download/)
+- [Git](https://git-scm.com/downloads)
+
+---
+
+## Installation Instructions
+
+### 1. Clone the Repository
+```bash                                                                           `
+git clone https://github.com/JulianMartinezz/PuebaTecnicaBackend-Dreiken.git
+cd PuebaTecnicaBackend-Dreiken
+
+### 2. Install PostgreSQL
+Download PostgreSQL from the official website.
+During installation, set up a database user with a password.
+
+## 3. Configure the Database
+Create a new database called RRHH_DB in PostgreSQL
+    1. Open pgAdmin or connect to PostgreSQL via the command line.
+    2. Run the sql script that is located at the start of this readme
+
+## 4. Configure the Application
+Open the appsettings.json file in the project root, and set your PostgreSQL connection string:
+
+"ConnectionStrings": {
+    "DefaultConnection": "Host=localhost;Database=RRHH_DB;Username=<YourUsername>;Password=<YourPassword>"
+}
+
+## 5. Run Database Migrations
+Apply Entity Framework Core migrations to create the necessary database schema:
+    dotnet ef database update
+
+## Run the App
+Start the API:
+    dotnet run
+Acces Swagger at http://localhost:5000/swagger to test the endpoints. (port could be different, check the terminal)
