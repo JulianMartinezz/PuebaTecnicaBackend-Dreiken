@@ -26,20 +26,15 @@ namespace HRMedicalRecordsManagement.Controllers
             [FromQuery] DateTime? endDate = null, 
             [FromQuery] int? medicalRecordTypeId = null)
         {
-            if (page < 1 || pageSize < 1)
-            {
-                return BadRequest("Page and PageSize must be greater than 0");
-            }
-
-            var medicalRecords = await _medicalRecordService.GetFilteredMedicalRecordsAsync(page, pageSize, statusId, startDate, endDate, medicalRecordTypeId);
-            return Ok(medicalRecords);
+            var response = await _medicalRecordService.GetFilteredMedicalRecordsAsync(page, pageSize, statusId, startDate, endDate, medicalRecordTypeId);
+            return StatusCode(response.Code ?? 500, response);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetMedicalRecordById(int id)
         {
-            var medicalRecordDto = await _medicalRecordService.GetByIdAsync(id);
-            return Ok(medicalRecordDto);
+            var response = await _medicalRecordService.GetByIdAsync(id);
+            return StatusCode(response.Code ?? 500, response);
         }
 
         [HttpPost]
@@ -47,8 +42,8 @@ namespace HRMedicalRecordsManagement.Controllers
         {
             var currentUser = "admin"; //Hardcoded since there is no requisite for authorization/authentication
 
-            await _medicalRecordService.AddAsync(medicalRecord, currentUser);
-            return Ok(medicalRecord.MedicalRecordId);
+            var response = await _medicalRecordService.AddAsync(medicalRecord, currentUser);
+            return StatusCode(response.Code ?? 500, response);
         }
 
         [HttpPut("{id}")]
@@ -56,8 +51,8 @@ namespace HRMedicalRecordsManagement.Controllers
         {
             var currentUser = "admin"; //Hardcoded since there is no requisite for authorization/authentication
             medicalRecord.MedicalRecordId = id;
-            await _medicalRecordService.UpdateAsync(medicalRecord, currentUser);
-            return  Ok(medicalRecord);
+            var response = await _medicalRecordService.UpdateAsync(medicalRecord, currentUser);
+            return  StatusCode(response.Code ?? 500, response);
         }
 
         [HttpDelete("{id}")]
@@ -65,8 +60,8 @@ namespace HRMedicalRecordsManagement.Controllers
         {
             var currentUser = "admin"; //Hardcoded since there is no requisite for authorization/authentication
 
-            await _medicalRecordService.DeleteAsync(id, currentUser, reason);
-            return Ok();
+            var response = await _medicalRecordService.DeleteAsync(id, currentUser, reason);
+            return StatusCode(response.Code ?? 500, response);
         }
     }
 }

@@ -65,13 +65,25 @@ public class MedicalRecordRepository : IMedicalRecordRepository
         var record = await _context.TMedicalRecords.FindAsync(id);
         if (record != null)
         {
-            //Logical deletion
-            record.StatusId = 2;
-            record.DeletedBy = deletionData.CurrentUser;
-            record.DeletionReason = deletionData.Reason;
-            record.DeletionDate = deletionData.CurrentDate;
-            _context.TMedicalRecords.Update(record);
-            await _context.SaveChangesAsync();
+            if(record.StatusId == 2)
+            {
+                throw new InvalidOperationException("Medical record was already inactive");
+            }
+
+            else 
+            {
+                //Logical deletion
+                record.StatusId = 2;
+                record.DeletedBy = deletionData.CurrentUser;
+                record.DeletionReason = deletionData.Reason;
+                record.EndDate = deletionData.CurrentDate;
+                _context.TMedicalRecords.Update(record);
+                await _context.SaveChangesAsync();
+            }
+        }
+        else
+        {
+            throw new KeyNotFoundException("Medical record not found");
         }
     }
 
